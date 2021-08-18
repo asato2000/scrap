@@ -1,5 +1,6 @@
 require "nokogiri"
-
+require  "net/http"
+require 'json'
 def get_from(url)
   Net::HTTP.get(URI(url))
 end
@@ -31,3 +32,6 @@ doc.xpath('/html/body/main/section').each_with_index do |section, index|
 
   pitnews << contents
 end
+
+
+File.open('pitnews.json', 'w') { |file| file.write({pitnews: pitnews}.to_json) }
